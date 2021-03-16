@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 const Home = ({ userObj }) => {
 	const [rweet, setRweet] = useState("");
 	const [rweets, setRweets] = useState([]);
-	const [attachment, setAttachment] = useState();
+	const [attachment, setAttachment] = useState("");
 	useEffect(() => {
 		dbService.collection("rweets").onSnapshot((snapshot) => {
 			const rweetArray = snapshot.docs.map((doc) => ({
