@@ -10,25 +10,35 @@ function App() {
 		authService.onAuthStateChanged((user) => {
 			if (user) {
 				setIsLoggedIn(true);
-				//userObj에서 사용할 요소만 선택함.(object가 무거우면 react가 re-랜더링 요소를 찾는 것 힘들어함.)
+				//방법1. userObj에서 사용할 요소만 선택함.(object가 무거우면 react가 re-랜더링 요소를 찾는 것 힘들어함.)
+				/*
 				setUserObj({
 					displayName: user.displayName,
 					uid: user.uid,
 					updateProfile: (args) => user.updateProfile(args),
 				});
+				*/
+				//방법2. 깊은 복사, 얕은 복사 이용
+				setUserObj(user);
 			} else {
 				setIsLoggedIn(false);
+				setUserObj(null);
 			}
 			setInit(true);
 		});
 	}, []);
 	const refreshUser = () => {
+		//방법1
+		/*
 		const user = authService.currentUser;
 		setUserObj({
 			displayName: user.displayName,
 			uid: user.uid,
 			updateProfile: (args) => user.updateProfile(args),
 		});
+		*/
+		//방법2
+		setUserObj({ ...authService.currentUser });
 	};
 	return (
 		<>
