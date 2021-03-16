@@ -13,6 +13,7 @@ function App() {
 					displayName: user.displayName,
 					uid: user.uid,
 					updateProfile: (args) => user.updateProfile(args),
+					photoURL: user.photoURL,
 				});
 				//방법2. 깊은 복사, 얕은 복사 이용 (profile을 2번 이상 연속 update 시 error)
 				//setUserObj(user);
@@ -29,6 +30,7 @@ function App() {
 			displayName: user.displayName,
 			uid: user.uid,
 			updateProfile: (args) => user.updateProfile(args),
+			photoURL: user.photoURL,
 		});
 		//방법2
 		//setUserObj({ ...authService.currentUser });

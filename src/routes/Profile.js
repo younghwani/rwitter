@@ -38,6 +38,11 @@ export default ({ refreshUser, userObj }) => {
 	};
 	return (
 		<>
+			<div>
+				{userObj.photoURL && (
+					<img src={userObj.photoURL} width="100px" height="100px" />
+				)}
+			</div>
 			<form onSubmit={onSubmit}>
 				<input
 					onChange={onChange}
