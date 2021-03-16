@@ -1,3 +1,4 @@
+import Rweet from "components/Rweet";
 import { dbService } from "fbase";
 import React, { useEffect, useState } from "react";
 
@@ -42,9 +43,7 @@ const Home = ({ userObj }) => {
 			</form>
 			<div>
 				{rweets.map((rweet) => (
-					<div key={rweet.id}>
-						<h4>{rweet.text}</h4>
-					</div>
+					<Rweet key={rweet.id} rweetObj={rweet} isOwner={rweet.creatorId === userObj.uid} />
 				))}
 			</div>
 		</div>
