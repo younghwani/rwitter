@@ -45,6 +45,7 @@ const Rweet = ({ rweetObj, isOwner }) => {
 			) : (
 				<>
 					<h4>{rweetObj.text}</h4>
+                    {rweetObj.attachmentUrl && <img src={rweetObj.attachmentUrl} width="50px" height="50px" />}
 					{isOwner && (
 						<>
 							<button onClick={onDeleteClick}>
