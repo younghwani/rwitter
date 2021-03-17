@@ -1,5 +1,7 @@
 import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Rweet = ({ rweetObj, isOwner }) => {
 	const [editing, setEditing] = useState(false);
@@ -10,7 +12,7 @@ const Rweet = ({ rweetObj, isOwner }) => {
 		);
 		if (ok) {
 			await dbService.doc(`rweets/${rweetObj.id}`).delete();
-            await storageService.refFromURL(rweetObj.attachmentUrl).delete();
+			await storageService.refFromURL(rweetObj.attachmentUrl).delete();
 		}
 	};
 	const toggleEditing = () => setEditing((prev) => !prev);
@@ -19,7 +21,7 @@ const Rweet = ({ rweetObj, isOwner }) => {
 		await dbService.doc(`rweets/${rweetObj.id}`).update({
 			text: newRweet,
 		});
-        setEditing(false);
+		setEditing(false);
 	};
 	const onChange = (event) => {
 		const {
@@ -28,32 +30,44 @@ const Rweet = ({ rweetObj, isOwner }) => {
 		setNewRweet(value);
 	};
 	return (
-		<div>
+		<div className="rweet">
 			{editing ? (
 				<>
-					<form onSubmit={onSubmit}>
+					<form onSubmit={onSubmit} className="container rweetEdit">
 						<input
 							type="text"
 							placeholder="Edit your rweet"
 							value={newRweet}
 							required
+							autoFocus
 							onChange={onChange}
+							className="formInput"
 						/>
-						<input type="submit" value="Update Rweet" />
+						<input
+							type="submit"
+							value="Update Rweet"
+							className="formBtn"
+						/>
 					</form>
-					<button onClick={toggleEditing}>Cancel</button>
+					<span onClick={toggleEditing} className="formBtn cancelBtn">
+						Cancel
+					</span>
 				</>
 			) : (
 				<>
 					<h4>{rweetObj.text}</h4>
-                    {rweetObj.attachmentUrl && <img src={rweetObj.attachmentUrl} width="50px" height="50px" />}
+					{rweetObj.attachmentUrl && (
+						<img src={rweetObj.attachmentUrl} />
+					)}
 					{isOwner && (
-						<>
-							<button onClick={onDeleteClick}>
-								Delete Rweet
-							</button>
-							<button onClick={toggleEditing}>Edit Rweet</button>
-						</>
+						<div class="rweet__actions">
+							<span onClick={onDeleteClick}>
+								<FontAwesomeIcon icon={faTrash} />
+							</span>
+							<span onClick={toggleEditing}>
+								<FontAwesomeIcon icon={faPencilAlt} />
+							</span>
+						</div>
 					)}
 				</>
 			)}

@@ -16,7 +16,7 @@ export default ({ refreshUser, userObj }) => {
 			.where("creatorId", "==", userObj.uid)
 			.orderBy("createdAt")
 			.get();
-		console.log(rweets.docs.map((doc) => doc.data()));
+		//console.log(rweets.docs.map((doc) => doc.data()));
 	};
 	useEffect(() => {
 		getMyRweets();
@@ -37,22 +37,31 @@ export default ({ refreshUser, userObj }) => {
 		}
 	};
 	return (
-		<>
-			<div>
+		<div className="container">
+			<div className="profilePhoto">
 				{userObj.photoURL && (
-					<img src={userObj.photoURL} width="100px" height="100px" />
+					<img src={userObj.photoURL}/>
 				)}
 			</div>
-			<form onSubmit={onSubmit}>
+			<form onSubmit={onSubmit} className="profileForm">
 				<input
 					onChange={onChange}
 					type="text"
+					autoFocus
 					placeholder="Display name"
 					value={newDisplayName}
+					className="formInput"
 				/>
-				<input type="submit" value="Update Profile" />
+				<input
+					type="submit"
+					value="Update Profile"
+					className="formBtn"
+					style={{ marginTop: 10 }}
+				/>
 			</form>
-			<button onClick={onLogOutClick}>Log Out</button>
-		</>
+			<span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+				Log Out
+			</span>
+		</div>
 	);
 };
